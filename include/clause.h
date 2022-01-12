@@ -19,6 +19,9 @@ class clause {
 public:
   clause() = default;
   ~clause() = default;
+
+  std::unordered_set<int> data;
+
   int add(int d) {
     this->data.insert(d);
     return 0;
@@ -27,9 +30,6 @@ public:
     this->data.erase(d);
     return 0;
   }
-
-private:
-  std::unordered_set<int> data;
 };
 
 typedef std::shared_ptr<dpll::clause> clausePtr;
@@ -39,13 +39,14 @@ public:
   clauseSet() = default;
   clauseSet(std::string path) { read_from_cnf(path); }
   ~clauseSet() = default;
-  int read_from_cnf(std::string path);
 
-private:
   int cla_count, var_count;
   std::vector<clausePtr> clause_vec;
+
+  int read_from_cnf(std::string path);
 };
 
+typedef std::shared_ptr<dpll::clauseSet> clauseSetPtr;
 } // namespace dpll
 
 // void CNF_Save(ClaNode *head, FILE *DSS) {
