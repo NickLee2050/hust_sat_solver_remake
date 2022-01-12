@@ -1,9 +1,9 @@
-#include "include/clause.h"
+#include "include/dpll_solver.h"
 // #include "include/dpll_solver.h"
 // #include "GenBoard.h"
 // #include "ConvertBoard.h"
 int main() {
-  auto cla_set = std::make_shared<dpll::clauseSet>("./test.txt");
+  auto solver = std::make_shared<dpll::dpllSolver>("./test.txt");
   // int size = 12;
   // clock_t start = clock();
   // board *b = GenBoard(size, 0.5);
