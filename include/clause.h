@@ -20,14 +20,10 @@ public:
   clause() = default;
   ~clause() = default;
 
-  std::unordered_set<int> data;
+  std::vector<int> data;
 
   int add(int d) {
-    this->data.insert(d);
-    return 0;
-  }
-  int remove(int d) {
-    this->data.erase(d);
+    this->data.emplace_back(d);
     return 0;
   }
 };
