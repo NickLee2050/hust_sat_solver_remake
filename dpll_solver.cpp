@@ -42,7 +42,6 @@ int dpllSolver::solve() {
       return solution_stat::kUnsolvable;
     }
   }
-  results = last_solve;
   return solution_stat::kUnsolvable;
 }
 
