@@ -1,4 +1,4 @@
-#include <include/clause.h>
+#include "include/clause.h"
 namespace dpll {
 int clauseSet::read_from_cnf(std::string path) {
   std::ifstream ifs(path);
@@ -13,6 +13,7 @@ int clauseSet::read_from_cnf(std::string path) {
     if (mode == 'p') {
       ifs >> line >> this->var_count >> this->cla_count;
       this->clause_vec.resize(this->cla_count, nullptr);
+      std::getline(ifs, line);
       break;
     }
     std::getline(ifs, line);
@@ -24,7 +25,7 @@ int clauseSet::read_from_cnf(std::string path) {
     int d = 0;
     std::getline(ifs, line);
     line_stream << line;
-    while (line_stream >> d, !d) {
+    while (line_stream >> d, d != 0) {
       cur_cla.add(d);
     }
   }

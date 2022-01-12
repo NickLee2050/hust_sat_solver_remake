@@ -17,29 +17,35 @@ Definition explanation:
 namespace dpll {
 class clause {
 public:
-  clause();
-  ~clause();
+  clause() = default;
+  ~clause() = default;
   int add(int d) {
     this->data.insert(d);
     return 0;
   }
-  int remove(int d) { this->data.erase(d); }
+  int remove(int d) {
+    this->data.erase(d);
+    return 0;
+  }
 
 private:
   std::unordered_set<int> data;
 };
 
+typedef std::shared_ptr<dpll::clause> clausePtr;
+
 class clauseSet {
 public:
-  clauseSet();
-  ~clauseSet();
+  clauseSet() = default;
+  clauseSet(std::string path) { read_from_cnf(path); }
+  ~clauseSet() = default;
   int read_from_cnf(std::string path);
 
 private:
   int cla_count, var_count;
   std::vector<clausePtr> clause_vec;
 };
-typedef std::shared_ptr<clause> clausePtr;
+
 } // namespace dpll
 
 // void CNF_Save(ClaNode *head, FILE *DSS) {
