@@ -29,7 +29,8 @@ private:
   std::vector<dpll::var_stat> results;
 
   int get_cla_unknown_var(clausePtr cla_ptr);
-  int get_solve_stat();
+  int get_solve_stat(clausePtr &last_single);
+  int get_next_split();
 };
 
 // Status GenResult(int *result, int *init, ALGraph *G) {
@@ -257,44 +258,5 @@ private:
 //   DestroyQueue(CurLearnt);
 //   DestroyQueue(result);
 //   return true;
-// }
-// int *DPLL(ClaNode *head) {
-//   /*
-//   This DPLL algorithm applies Conflict Driven Clause Learning
-//   method to provide learning and non-chronological backtrack
-//   features for faster searching and to minimize memory costs.
-//   */
-//   int mark;
-//   int level = 0;
-//   ALGraph *G = InitGraph();
-//   SimpSet *target = InitSimpSet();
-//   VNode *confv = NULL;
-//   int *result = (int *)malloc(sizeof(int) * (var_count + 1));
-//   int *init = (int *)malloc(sizeof(int) * (var_count + 1));
-//   if (!result || !init)
-//     exit(-1);
-//   DefSimplify(&head, init);
-//   ClaNode *cur = head;
-//   if (!cur)
-//     return init;
-//   GenResult(result, init, G);
-//   while (1) {
-//     mark = ClaSetJudge(result, cur, target);
-//     if (mark == EMPTY_SET)
-//       return result;
-//     if (mark == WITH_EMPTY_CLA) {
-//       confv = ConflictMark(G, target, level);
-//       if (!Analyse(G, &cur, &level, confv))
-//         return NULL;
-//       GenResult(result, init, G);
-//       ClearSimpSet(target);
-//       continue;
-//     }
-//     if (mark == SPLIT_REQD)
-//       level++;
-//     int n = target->v[0];
-//     result[abs(n)] = n > 0 ? 1 : -1;
-//     AdvSimplify(target, G, level, mark);
-//   }
 // }
 } // namespace dpll

@@ -4,6 +4,12 @@
 // #include "ConvertBoard.h"
 int main() {
   auto solver = std::make_shared<dpll::dpllSolver>("./test.txt");
+  if (solver->solve() == dpll::solution_stat::kSolved) {
+    std::cout << "solved!" << std::endl;
+    solver->show_res(30);
+  } else {
+    std::cout << "unsolvable!" << std::endl;
+  }
   // int size = 12;
   // clock_t start = clock();
   // board *b = GenBoard(size, 0.5);
