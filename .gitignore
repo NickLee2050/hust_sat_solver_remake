@@ -1,3 +1,11 @@
+# Visual Studio Code configurations
 .vscode/*
+
+# executable file
 main
+
+# object files
 *.o
+
+# output results
+*.txt

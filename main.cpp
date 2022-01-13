@@ -1,10 +1,9 @@
 #include "include/dpll_solver.h"
 #include <iostream>
-// #include "include/dpll_solver.h"
-// #include "GenBoard.h"
-// #include "ConvertBoard.h"
-int main() {
-  auto solver = std::make_shared<dpll::dpllSolver>("./test.txt");
+
+int main(int argc, char *argv[]) {
+  auto solver = std::make_shared<dpll::dpllSolver>("./cnf_examples/sat/M/"
+                                                   "sud00861.cnf");
   if (solver->solve() == dpll::solution_stat::kSolved) {
     std::cout << "solved!" << std::endl;
     solver->show_res(30);
