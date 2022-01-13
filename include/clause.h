@@ -1,19 +1,7 @@
-#include <bits/stdc++.h>
-/*
-Definition explanation:
-    EMPTY_SET:
-        The set is empty.
-        return true in DPLL next.
-    WITH_SIG_CLA:
-        The set contains single clause(s).
-        Do simplification next.
-    SPLIT_REQD:
-        The set contains neither single nor empty clauses.
-        Do split operation next.
-    WITH_EMPTY_CLA:
-        The set contains empty clause(s).
-        return false in DPLL next.
-*/
+#include <memory>
+#include <string>
+#include <vector>
+
 namespace dpll {
 class clause {
 public:

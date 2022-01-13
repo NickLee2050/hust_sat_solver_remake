@@ -1,4 +1,5 @@
 #include "include/dpll_solver.h"
+#include <iostream>
 // #include "include/dpll_solver.h"
 // #include "GenBoard.h"
 // #include "ConvertBoard.h"

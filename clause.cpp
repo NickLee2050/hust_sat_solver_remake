@@ -1,4 +1,6 @@
 #include "include/clause.h"
+#include <fstream>
+#include <sstream>
 namespace dpll {
 int clauseSet::read_from_cnf(std::string path) {
   std::ifstream ifs(path);

@@ -1,5 +1,4 @@
 #include "clause.h"
-#include <bits/stdc++.h>
 
 namespace dpll {
 enum var_stat { kUnsat = -1, kUnknown = 0, kSat = 1 };

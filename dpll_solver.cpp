@@ -1,4 +1,5 @@
 #include "include/dpll_solver.h"
+#include <iostream>
 namespace dpll {
 
 int dpllSolver::solve() {
