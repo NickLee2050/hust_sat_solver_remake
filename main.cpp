@@ -2,8 +2,7 @@
 #include <iostream>
 
 int main(int argc, char *argv[]) {
-  auto solver = std::make_shared<dpll::dpllSolver>("./cnf_examples/sat/M/"
-                                                   "sud00861.cnf");
+  auto solver = std::make_shared<dpll::dpllSolver>("./benchmark/6.cnf");
   if (solver->solve() == dpll::solution_stat::kSolved) {
     std::cout << "solved!" << std::endl;
     solver->show_res(30);
