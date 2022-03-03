@@ -11,13 +11,13 @@ enum solution_stat {
 
 class dpllSolver {
 public:
-  dpllSolver() = default;
+  dpllSolver(){};
   dpllSolver(std::string path) {
     if (read(path)) {
       throw;
     }
   }
-  ~dpllSolver() = default;
+  ~dpllSolver(){};
 
   int solve();
   int read(std::string path);

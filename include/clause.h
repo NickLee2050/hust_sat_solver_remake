@@ -5,13 +5,13 @@
 namespace dpll {
 class clause {
 public:
-  clause() = default;
-  ~clause() = default;
+  clause(){};
+  ~clause(){};
 
   std::vector<int> data;
 
   int add(int d) {
-    this->data.emplace_back(d);
+    this->data.push_back(d);
     return 0;
   }
 };
