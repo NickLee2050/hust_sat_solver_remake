@@ -6,3 +6,6 @@ main
 
 # output results
 *.txt
+
+# vscode settings
+.vscode/
