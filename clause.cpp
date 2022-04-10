@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 namespace dpll {
-int clauseSet::read_from_cnf(std::string path) {
+int clauseSet::read_from_cnf(const std::string &path) {
   std::ifstream ifs(path);
   if (!ifs) {
     return -1;

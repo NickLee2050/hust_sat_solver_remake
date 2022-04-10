@@ -5,10 +5,8 @@ namespace dpll {
 int dpllSolver::solve() {
   std::vector<dpll::var_stat> last_solve = results;
   int split_pos = 0;
-  clause last_single;
   while (1) {
-    last_single.data.clear();
-    int mark = this->get_solve_stat(last_single);
+    auto [mark, last_single_ptr] = this->get_solve_stat();
     if (mark == solution_stat::kSolved) {
       return mark;
     }
@@ -17,7 +15,7 @@ int dpllSolver::solve() {
       return mark;
     }
     if (mark == solution_stat::kHasSingleCla) {
-      for (auto &d : last_single.data) {
+      for (auto d : last_single_ptr->data) {
         if (results[std::abs(d)] == var_stat::kUnknown) {
           results[abs(d)] = (d > 0) ? var_stat::kSat : var_stat::kUnsat;
           break;
@@ -71,21 +69,13 @@ void dpllSolver::show_res(size_t size) {
   return;
 }
 
-int dpllSolver::get_cla_unknown_var(const clause &cla) {
-  for (auto &item : cla.data) {
-    if (this->results[std::abs(item)] == kUnknown) {
-      return item;
-    }
-  }
-  return 0;
-}
-
-int dpllSolver::get_solve_stat(clause &last_single) {
+std::tuple<int, const clause *> dpllSolver::get_solve_stat() {
+  const clause *last_single_ptr = nullptr;
   int mark = solution_stat::kSolved;
   int res = 0;
   for (auto &cla : this->cla_set.clause_vec) {
-    size_t valid_var = cla.data.size();
-    for (auto &item : cla.data) {
+    int valid_var = cla.data.size();
+    for (auto item : cla.data) {
       res = item * results[abs(item)];
       if (res > 0) {
         valid_var = -1;
@@ -101,23 +91,23 @@ int dpllSolver::get_solve_stat(clause &last_single) {
     }
     if (valid_var == 0) {
       // current empty
-      return solution_stat::kUnsolvable;
+      return {solution_stat::kUnsolvable, nullptr};
     }
     if (valid_var == 1) {
       // current is single
-      last_single = cla;
+      last_single_ptr = &cla;
       continue;
     }
     mark = solution_stat::kNeedSplit;
   }
-  if (!last_single.data.empty()) {
-    return solution_stat::kHasSingleCla;
+  if (last_single_ptr) {
+    return {solution_stat::kHasSingleCla, last_single_ptr};
   }
-  return mark;
+  return {mark, nullptr};
 }
 
 int dpllSolver::get_next_split() {
-  for (int i = 1; i < (int)this->results.size(); i++) {
+  for (size_t i = 1; i < this->results.size(); i++) {
     if (results[i] == var_stat::kUnknown) {
       return i;
     }

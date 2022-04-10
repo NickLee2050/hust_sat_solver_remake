@@ -18,7 +18,7 @@ public:
 class clauseSet {
 public:
   clauseSet() = default;
-  clauseSet(std::string path) {
+  clauseSet(const std::string &path) {
     if (read_from_cnf(path)) {
       throw;
     };
@@ -28,7 +28,7 @@ public:
   int cla_count, var_count;
   std::vector<clause> clause_vec;
 
-  int read_from_cnf(std::string path);
+  int read_from_cnf(const std::string &path);
 };
 } // namespace dpll
 
