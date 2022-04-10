@@ -4,7 +4,6 @@ OBJS = main.o dpll_solver.o clause.o
 
 test: $(OBJS)
 	g++ $(XXFLAGS) -g -O2 -o main $(OBJS)  
-	rm -rf $(OBJS)
 
 clause.o: clause.cpp ./include/clause.h
 	g++ $(XXFLAGS) -g -c clause.cpp -o clause.o
