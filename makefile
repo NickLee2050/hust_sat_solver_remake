@@ -1,9 +1,11 @@
+.PHONY: test clean
+
 XXFLAGS += -std=c++17
 
 OBJS = main.o dpll_solver.o clause.o
 
 test: $(OBJS)
-	g++ $(XXFLAGS) -g -O2 -o main $(OBJS)  
+	g++ $(XXFLAGS) -g -o main $(OBJS)  
 
 clause.o: clause.cpp ./include/clause.h
 	g++ $(XXFLAGS) -g -c clause.cpp -o clause.o
