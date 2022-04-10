@@ -1,8 +1,8 @@
 #include "clause.h"
 
 namespace dpll {
-enum var_stat { kUnsat = -1, kUnknown = 0, kSat = 1 };
-enum solution_stat {
+enum var_stat : int8_t { kUnsat = -1, kUnknown = 0, kSat = 1 };
+enum solution_stat : int8_t {
   kUnsolvable = -1,
   kSolved = 0,
   kNeedSplit = 1,
@@ -20,15 +20,14 @@ public:
   ~dpllSolver(){};
 
   int solve();
-  int read(std::string path);
   void show_res(size_t size);
 
 private:
-  clauseSetPtr cla_set_ptr = nullptr;
+  clauseSet cla_set;
   std::vector<dpll::var_stat> results;
 
-  int get_cla_unknown_var(clausePtr cla_ptr);
-  int get_solve_stat(clausePtr &last_single);
+  int read(std::string path);
+  std::tuple<int, const clause *> get_solve_stat();
   int get_next_split();
 };
 
