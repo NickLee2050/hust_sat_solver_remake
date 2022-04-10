@@ -20,15 +20,15 @@ public:
   ~dpllSolver(){};
 
   int solve();
-  int read(std::string path);
   void show_res(size_t size);
 
 private:
-  clauseSetPtr cla_set_ptr = nullptr;
+  clauseSet cla_set;
   std::vector<dpll::var_stat> results;
 
-  int get_cla_unknown_var(clausePtr cla_ptr);
-  int get_solve_stat(clausePtr &last_single);
+  int read(std::string path);
+  int get_cla_unknown_var(const clause &cla);
+  int get_solve_stat(clause &last_single);
   int get_next_split();
 };
 

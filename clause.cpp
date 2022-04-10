@@ -14,17 +14,15 @@ int clauseSet::read_from_cnf(std::string path) {
     ifs >> mode;
     if (mode == 'p') {
       ifs >> line >> this->var_count >> this->cla_count;
-      this->clause_vec.resize(this->cla_count, nullptr);
+      this->clause_vec.resize(this->cla_count);
       std::getline(ifs, line);
       break;
     }
     std::getline(ifs, line);
   }
-  for (int i = 0; i < this->cla_count && !ifs.eof(); i++) {
-    this->clause_vec[i] = std::make_shared<clause>();
-    auto &cur_cla = *(this->clause_vec[i]);
+  for (int i = 0, d = 0; i < this->cla_count && !ifs.eof(); i++) {
+    auto &cur_cla = this->clause_vec[i];
     std::stringstream line_stream;
-    int d = 0;
     std::getline(ifs, line);
     line_stream << line;
     while (line_stream >> d, d != 0) {

@@ -5,8 +5,9 @@ namespace dpll {
 int dpllSolver::solve() {
   std::vector<dpll::var_stat> last_solve = results;
   int split_pos = 0;
+  clause last_single;
   while (1) {
-    clausePtr last_single = nullptr;
+    last_single.data.clear();
     int mark = this->get_solve_stat(last_single);
     if (mark == solution_stat::kSolved) {
       return mark;
@@ -16,7 +17,7 @@ int dpllSolver::solve() {
       return mark;
     }
     if (mark == solution_stat::kHasSingleCla) {
-      for (auto &d : last_single->data) {
+      for (auto &d : last_single.data) {
         if (results[std::abs(d)] == var_stat::kUnknown) {
           results[abs(d)] = (d > 0) ? var_stat::kSat : var_stat::kUnsat;
           break;
@@ -47,11 +48,8 @@ int dpllSolver::solve() {
 }
 
 int dpllSolver::read(std::string path) {
-  this->cla_set_ptr = std::make_shared<clauseSet>(path);
-  if (!this->cla_set_ptr) {
-    return -1;
-  }
-  results.resize(this->cla_set_ptr->var_count + 1, var_stat::kUnknown);
+  this->cla_set = dpll::clauseSet(path);
+  results.resize(this->cla_set.var_count + 1, var_stat::kUnknown);
   return 0;
 }
 
@@ -73,11 +71,8 @@ void dpllSolver::show_res(size_t size) {
   return;
 }
 
-int dpllSolver::get_cla_unknown_var(clausePtr cla_ptr) {
-  if (!cla_ptr) {
-    return 0;
-  }
-  for (auto &item : cla_ptr->data) {
+int dpllSolver::get_cla_unknown_var(const clause &cla) {
+  for (auto &item : cla.data) {
     if (this->results[std::abs(item)] == kUnknown) {
       return item;
     }
@@ -85,12 +80,12 @@ int dpllSolver::get_cla_unknown_var(clausePtr cla_ptr) {
   return 0;
 }
 
-int dpllSolver::get_solve_stat(clausePtr &last_single) {
+int dpllSolver::get_solve_stat(clause &last_single) {
   int mark = solution_stat::kSolved;
   int res = 0;
-  for (auto &cla_ptr : this->cla_set_ptr->clause_vec) {
-    size_t valid_var = cla_ptr->data.size();
-    for (auto &item : cla_ptr->data) {
+  for (auto &cla : this->cla_set.clause_vec) {
+    size_t valid_var = cla.data.size();
+    for (auto &item : cla.data) {
       res = item * results[abs(item)];
       if (res > 0) {
         valid_var = -1;
@@ -110,12 +105,12 @@ int dpllSolver::get_solve_stat(clausePtr &last_single) {
     }
     if (valid_var == 1) {
       // current is single
-      last_single = cla_ptr;
+      last_single = cla;
       continue;
     }
     mark = solution_stat::kNeedSplit;
   }
-  if (last_single) {
+  if (!last_single.data.empty()) {
     return solution_stat::kHasSingleCla;
   }
   return mark;

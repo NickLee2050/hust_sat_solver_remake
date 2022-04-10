@@ -15,22 +15,21 @@ public:
     return 0;
   }
 };
-
-typedef std::shared_ptr<dpll::clause> clausePtr;
-
 class clauseSet {
 public:
   clauseSet() = default;
-  clauseSet(std::string path) { read_from_cnf(path); }
+  clauseSet(std::string path) {
+    if (read_from_cnf(path)) {
+      throw;
+    };
+  }
   ~clauseSet() = default;
 
   int cla_count, var_count;
-  std::vector<clausePtr> clause_vec;
+  std::vector<clause> clause_vec;
 
   int read_from_cnf(std::string path);
 };
-
-typedef std::shared_ptr<dpll::clauseSet> clauseSetPtr;
 } // namespace dpll
 
 // void CNF_Save(ClaNode *head, FILE *DSS) {
