@@ -9,3 +9,9 @@ main
 
 # vscode settings
 .vscode/
+
+# clangd temporary files
+.clangd/
+
+# compile commands by "$bear"
+compile_commands.json
