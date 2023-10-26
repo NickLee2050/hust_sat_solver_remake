@@ -3,10 +3,10 @@
         {
             "type": "shell",
             "label": "make_solver",
-            "command": "make",
+            "command": "${workspaceFolder}/.vscode/make_solver.sh",
             "args": [],
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": [
                 "$gcc"
