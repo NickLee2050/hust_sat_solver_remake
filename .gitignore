@@ -1,17 +1,5 @@
-# executable file
-main
+# clangd analysis cache files
+.cache/
 
-# object files
-*.o
-
-# output results
-*.txt
-
-# vscode settings
-.vscode/
-
-# clangd temporary files
-.clangd/
-
-# compile commands by "$bear"
-compile_commands.json
+# build directory
+build/

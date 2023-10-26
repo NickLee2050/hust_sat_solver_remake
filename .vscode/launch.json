@@ -8,7 +8,7 @@
             "name": "debug_solver",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/main",
+            "program": "${workspaceFolder}/build/sat_solver",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
