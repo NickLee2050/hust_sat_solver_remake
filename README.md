@@ -1,7 +1,7 @@
 # hust_program_design_remake
 The cpp remade version of HUST Program Design, SAT Solver Problem.
 
-To make make this project, execute commands:
+To make this project, execute commands:
 ```shell
 mkdir build
 cd build
