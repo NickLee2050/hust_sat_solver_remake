@@ -15,6 +15,7 @@ public:
     return 0;
   }
 };
+
 class clauseSet {
 public:
   clauseSet() = default;
@@ -28,6 +29,7 @@ public:
   int cla_count, var_count;
   std::vector<clause> clause_vec;
 
+protected:
   int read_from_cnf(const std::string &path);
 };
 } // namespace dpll

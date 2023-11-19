@@ -17,7 +17,7 @@ int dpllSolver::solve() {
     if (mark == solution_stat::kHasSingleCla) {
       for (auto d : last_single_ptr->data) {
         if (results[std::abs(d)] == var_stat::kUnknown) {
-          results[abs(d)] = (d > 0) ? var_stat::kSat : var_stat::kUnsat;
+          results[std::abs(d)] = (d > 0) ? var_stat::kSat : var_stat::kUnsat;
           break;
         }
       }
